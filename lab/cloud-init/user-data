@@ -1,0 +1,10 @@
+#cloud-config
+
+users:
+  - name: ubuntu
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
+    ssh_authorized_keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJJX/BW56P2wtPAuNrgzwPUHoNuUE7J7xR9PQLQnh7eg cloud1-lab
+    ssh_pwauth: false
+    groups: sudo

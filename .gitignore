@@ -1,0 +1,13 @@
+# Secrets — ne doivent jamais partir sur GitHub
+.env
+*.key
+*.pem
+certs/
+.vault_pass
+
+# Artefacts générés (régénérables : on versionne la recette, pas le résultat)
+*.iso
+lab/state/
+
+# Ansible
+*.retry
