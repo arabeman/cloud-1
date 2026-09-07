@@ -21,10 +21,6 @@ logs:
 ps:
 	$(COMPOSE) ps
 
-reset-data:
-	docker compose -f ./srcs/docker-compose.yml down
-	rm -rf $(HOME)/data/wordpress/*
-	rm -rf $(HOME)/data/mariadb/*
 
 clean:
 	docker compose -f ./srcs/docker-compose.yml down --rmi all --volumes --remove-orphans
@@ -33,3 +29,8 @@ clean:
 fclean: clean
 	sudo rm -rf $(HOME)/data/wordpress/*
 	sudo rm -rf $(HOME)/data/mariadb/*
+
+reset-data:
+	docker compose -f ./srcs/docker-compose.yml down
+	rm -rf $(HOME)/data/wordpress/*
+	rm -rf $(HOME)/data/mariadb/*

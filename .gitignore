@@ -11,3 +11,6 @@ lab/state/
 
 # Ansible
 *.retry
+
+# Secrets
+secrets/
