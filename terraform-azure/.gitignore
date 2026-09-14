@@ -1,0 +1,7 @@
+# donnees sauvegarder apres chaque commande: `terraform apply`
+terraform.tfstate
+*.tfstate
+*.tfstate.*
+
+# dossier de cache provider qui contient un binaire pour communiquer avec l'api azure
+.terraform/
