@@ -13,4 +13,4 @@ lab/state/
 *.retry
 
 # Secrets
-secrets/ssl/
+secrets/

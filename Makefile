@@ -1,3 +1,5 @@
+DOMAIN = mickaia-cloud-1.duckdns.org
+
 NAME = cloud-1
 
 COMPOSE = docker compose -f ./srcs/docker-compose.yml
@@ -21,6 +23,14 @@ logs:
 ps:
 	$(COMPOSE) ps
 
+cert:
+	docker run --rm -it \
+		-v "$(PWD)/secrets/letsencrypt:/etc/letsencrypt" \
+		-v "$(PWD)/secrets/acme:/var/www/certbot" \
+		certbot/certbot certonly \
+		--webroot \
+		--webroot-path /var/www/certbot \
+		-d $(DOMAIN)
 
 clean:
 	docker compose -f ./srcs/docker-compose.yml down --rmi all --volumes --remove-orphans
