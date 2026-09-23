@@ -49,5 +49,5 @@ fclean: clean
 
 reset-data:
 	docker compose -f ./srcs/docker-compose.yml down
-	rm -rf $(HOME)/data/wordpress/*
-	rm -rf $(HOME)/data/mariadb/*
+	sudo rm -rf $(HOME)/data/wordpress/*
+	sudo rm -rf $(HOME)/data/mariadb/*
