@@ -4,6 +4,10 @@ NAME = cloud-1
 
 COMPOSE = docker compose -f ./srcs/docker-compose.yml
 
+CERTBOT_DIR = $(CURDIR)/secrets/letsencrypt
+
+ACME_DIR = $(CURDIR)/secrets/acme
+
 all:
 	$(COMPOSE) up -d --build
 
@@ -25,8 +29,8 @@ ps:
 
 cert:
 	docker run --rm \
-		-v "$(PWD)/secrets/letsencrypt:/etc/letsencrypt" \
-		-v "$(PWD)/secrets/acme:/var/www/certbot" \
+		-v "$(CERTBOT_DIR):/etc/letsencrypt" \
+		-v "$(ACME_DIR):/var/www/certbot" \
 		certbot/certbot certonly \
 		--webroot \
 		--webroot-path /var/www/certbot \
