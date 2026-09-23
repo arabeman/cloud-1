@@ -24,13 +24,16 @@ ps:
 	$(COMPOSE) ps
 
 cert:
-	docker run --rm -it \
+	docker run --rm \
 		-v "$(PWD)/secrets/letsencrypt:/etc/letsencrypt" \
 		-v "$(PWD)/secrets/acme:/var/www/certbot" \
 		certbot/certbot certonly \
 		--webroot \
 		--webroot-path /var/www/certbot \
-		-d $(DOMAIN)
+		-d $(DOMAIN) \
+		--email ramahazonick@gmail.com \
+		--agree-tos \
+		--no-eff-email
 
 clean:
 	docker compose -f ./srcs/docker-compose.yml down --rmi all --volumes --remove-orphans
