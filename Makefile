@@ -37,7 +37,8 @@ cert:
 		-d $(DOMAIN) \
 		--email ramahazonick@gmail.com \
 		--agree-tos \
-		--no-eff-email
+		--no-eff-email \
+		--keep-until-expiring
 
 clean:
 	docker compose -f ./srcs/docker-compose.yml down --rmi all --volumes --remove-orphans
