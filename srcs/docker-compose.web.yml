@@ -1,0 +1,66 @@
+services:
+  nginx:
+    image: nginx:1.30.4
+    container_name: nginx
+    volumes:
+      - wordpress_data:/var/www/html
+      - ../secrets/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ../secrets/letsencrypt:/etc/letsencrypt:ro
+      - ../secrets/acme:/var/www/certbot:ro
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      wordpress:
+        condition: service_started
+    networks:
+      - frontend
+  
+  wordpress:
+    image: wordpress:php8.5-fpm
+    container_name: wordpress
+    restart: unless-stopped
+    environment:
+      WORDPRESS_DB_HOST: mariadb
+      WORDPRESS_DB_USER: user
+      WORDPRESS_DB_PASSWORD: user_password
+      WORDPRESS_DB_NAME: db
+    volumes:
+      - wordpress_data:/var/www/html
+    networks:
+      - frontend
+  
+  wp-cli:
+    profiles: ["init"]
+    build:
+      context: ./requirements/services/wp-cli
+    container_name: wp-cli
+    environment:
+      WORDPRESS_DB_HOST: mariadb
+      WORDPRESS_DB_USER: user
+      WORDPRESS_DB_PASSWORD: user_password
+      WORDPRESS_DB_NAME: db
+      WORDPRESS_URL: https://mickaia-cloud-1.duckdns.org
+      WORDPRESS_TITLE: My WordPress
+      WORDPRESS_ADMIN_USER: admin
+      WORDPRESS_ADMIN_PASSWORD: admin_password
+      WORDPRESS_ADMIN_EMAIL: admin@example.com
+    volumes:
+      - wordpress_data:/var/www/html
+    networks:
+      - frontend
+
+
+networks:
+  frontend:
+    driver: bridge
+
+
+volumes:
+  wordpress_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${WP_CONTENT_PATH}
