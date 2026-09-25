@@ -22,7 +22,7 @@ services:
     container_name: wordpress
     restart: unless-stopped
     environment:
-      WORDPRESS_DB_HOST: mariadb
+      WORDPRESS_DB_HOST: ${DB_HOST}
       WORDPRESS_DB_USER: user
       WORDPRESS_DB_PASSWORD: user_password
       WORDPRESS_DB_NAME: db
@@ -37,7 +37,7 @@ services:
       context: ./requirements/services/wp-cli
     container_name: wp-cli
     environment:
-      WORDPRESS_DB_HOST: mariadb
+      WORDPRESS_DB_HOST: ${DB_HOST}
       WORDPRESS_DB_USER: user
       WORDPRESS_DB_PASSWORD: user_password
       WORDPRESS_DB_NAME: db
